@@ -1,22 +1,116 @@
+---
+import AsideMenu from "../components/AsideMenu.astro";
+import { ClientRouter } from 'astro:transitions';
+// import Player from '@/components/Player'
+import Prueba from '@/components/Player'
+---
+
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Spotify Clone</title>
+    <!-- <ClientRouter /> -->
+  </head>
+  <body class="bg-zinc-950 text-white">
+    <div id="app" class="app-layout p-4 gap-4">
+      <aside class="card-section aside">
+        <AsideMenu />
+      </aside>
+      <main class="card-section main-content bg-zinc-900">
+        <slot />
+      </main>
+      <footer class="card-section player bg-zinc-900">
+        <Prueba client:only="react"/>
+      </footer>
+    </div>
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    font-family: "CircularStd", system-ui, sans-serif;
+  }
+
+  @font-face {
+    font-family: "CircularStd";
+    src: url("/fonts/CircularStd-Medium.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "CircularStd";
+    src: url("/fonts/CircularStd-Book.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "CircularStd";
+    src: url("/fonts/CircularStd-Light.woff2") format("woff2");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "CircularStd";
+    src: url("/fonts/CircularStd-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "CircularStd";
+    src: url("/fonts/CircularStd-Black.woff2") format("woff2");
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  .app-layout {
+    position: relative;
+    height: 100vh;
+    display: grid;
+    grid-template-areas:
+      "sidebar main main"
+      "player player player";
+    grid-template-columns: 350px 1fr;
+    grid-template-rows: 1fr auto;
+  }
+
+  .card-section {
+    border-radius: 0.75rem;
+    box-sizing: border-box;
+  }
+
+  .aside {
+    box-sizing: border-box;
+    grid-area: sidebar;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 0;
+  }
+
+  .main-content {
+    grid-area: main;
+    overflow-y: auto;
+  }
+
+  .player {
+    grid-area: player;
+    min-height: 100px;
+  }
 </style>
